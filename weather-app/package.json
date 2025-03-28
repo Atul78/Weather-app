@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://santosdaniel.github.io/weather-app",
+  "homepage": "https://atul78.github.io/Weather-app",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
