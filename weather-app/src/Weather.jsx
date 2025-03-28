@@ -40,42 +40,44 @@ const WeatherDashboard = () => {
   };
 
   return (
-    <div className="p-6 max-w-lg mx-auto bg-white shadow-xl rounded-lg">
-      <h1 className="text-xl font-bold mb-4">Weather Dashboard</h1>
+    <div className="p-6 max-w-lg mx-auto bg-gray-100 shadow-xl rounded-lg">
+      <h1 className="text-2xl font-bold mb-4 text-center">Weather Dashboard</h1>
       <div className="mb-4">
         <input
           type="text"
-          className="border p-2 w-full rounded"
+          className="border p-2 w-full rounded shadow-sm"
           placeholder="Enter city name..."
           value={city}
           onChange={(e) => setCity(e.target.value)}
         />
         <button
-          className="bg-blue-500 text-white p-2 mt-2 w-full rounded"
+          className="bg-blue-500 text-white p-2 mt-2 w-full rounded hover:bg-blue-600 transition"
           onClick={fetchWeather}
           disabled={loading}
         >
           {loading ? "Loading..." : "Get Weather"}
         </button>
       </div>
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500 text-center">{error}</p>}
       {weather && (
-        <div className="mb-4 p-4 border rounded">
-          <h2 className="text-lg font-bold">{weather.name}</h2>
-          <p>{weather.weather[0].description}</p>
-          <p>Temperature: {weather.main.temp}°C</p>
-          <p>Humidity: {weather.main.humidity}%</p>
+        <div className="mb-4 p-4 border rounded bg-white shadow">
+          <h2 className="text-xl font-bold">{weather.name}</h2>
+          <p className="capitalize">{weather.weather[0].description}</p>
+          <p>🌡️ Temperature: {weather.main.temp}°C</p>
+          <p>💧 Humidity: {weather.main.humidity}%</p>
         </div>
       )}
       {forecast.length > 0 && (
         <div>
-          <h3 className="text-lg font-bold mb-2">5-Day Forecast</h3>
-          <div className="grid grid-cols-2 gap-4">
+          <h3 className="text-lg font-bold mb-2 text-center">5-Day Forecast</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {forecast.map((day, index) => (
-              <div key={index} className="p-2 border rounded">
-                <p>{new Date(day.dt_txt).toLocaleDateString()}</p>
-                <p>{day.weather[0].description}</p>
-                <p>{day.main.temp}°C</p>
+              <div key={index} className="p-4 bg-white shadow-md rounded-lg text-center">
+                <p className="text-gray-600 font-semibold">
+                  {new Date(day.dt_txt).toLocaleDateString()}
+                </p>
+                <p className="capitalize">{day.weather[0].description}</p>
+                <p className="text-lg font-bold">🌡️ {day.main.temp}°C</p>
               </div>
             ))}
           </div>
