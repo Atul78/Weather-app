@@ -27,8 +27,8 @@ const WeatherDashboard = () => {
         `${BASE_URL}/forecast?q=${city}&units=metric&appid=${API_KEY}`
       );
 
-      const dailyForecast = forecastData.data.list.filter((item, index) =>
-        index % 8 === 0
+      const dailyForecast = forecastData.data.list.filter(
+        (item, index) => index % 8 === 0
       );
       setForecast(dailyForecast);
     } catch (err) {
@@ -76,17 +76,27 @@ const WeatherDashboard = () => {
           <div>
             <h3 className="mt-4 text-center text-success">5-Day Forecast</h3>
             <div className="row">
-              {forecast.map((day, index) => (
-                <div key={index} className="col-md-6">
-                  <div className="card mt-3 p-3 shadow-sm text-center">
-                    <p className="text-muted fw-semibold">
-                      {new Date(day.dt_txt).toLocaleDateString()}
-                    </p>
-                    <p className="text-capitalize">{day.weather[0].description}</p>
-                    <p className="fw-bold">🌡️ {day.main.temp}°C</p>
+              {forecast.map((day, index) => {
+                const date = new Date(day.dt_txt).toLocaleDateString();
+                const description = day.weather[0].description;
+                const temperature = day.main.temp;
+
+                return (
+                  <div key={index} className="col-md-6">
+                    <div className="weather-card card mt-3 p-3 shadow-sm text-center">
+                      <p className="date text-muted fw-semibold">
+                        📅 Date: <span>{date}</span>
+                      </p>
+                      <p className="description text-capitalize">
+                        ☁️ Weather: <span>{description}</span>
+                      </p>
+                      <p className="temperature fw-bold">
+                        🌡️ Temperature: <span>{temperature}°C</span>
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
